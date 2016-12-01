@@ -1,2 +1,2 @@
 # vueGold
-try to achieve gold with vue
+Try to achieve gold with vue
