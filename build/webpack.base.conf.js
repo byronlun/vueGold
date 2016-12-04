@@ -52,6 +52,13 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue'
       },
+      // {
+      //   test: /\.css$/,
+      //   include: [
+      //     path.resolve(__dirname, "not_exist_path")
+      //   ],
+      //   loader: "style!css"
+      // },
       {
         test: /\.js$/,
         loader: 'babel',
