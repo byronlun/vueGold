@@ -1,6 +1,14 @@
 <template>
   <div id="tabMenu">
-    <el-tree :data="menuData" :props="defaultProps" @node-click="handleNodeClick" highlight-current="true"></el-tree>
+    <el-menu default-active="/zhuanlan/all" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" unique-opened router>
+      <template v-for="(item, index) in menuData">
+        <el-submenu :index="index+''" v-if="!item.leaf">
+          <template slot="title">{{ item.label }}</template>
+          <!-- 这里router路径有问题，待解决 -->
+            <el-menu-item v-for="(childItem, childIndex) in item.children" :index="item.path+childItem.path">{{ childItem.value }}</el-menu-item>
+        </el-submenu>
+      </template>
+    </el-menu>
   </div>
 </template>
 
@@ -10,62 +18,85 @@
       return {
         menuData: [{
           label: '专栏',
+          path: '/zhuanlan',
           children: [{
-            label: '全部'
+            path: '/all',
+            value: '全部'
           }, {
-            label: '前端'
+            path: '/frontend',
+            value: '前端'
           }, {
-            label: '后端'
+            path: '/backend',
+            value: '后端'
           }, {
-            label: 'Android'
+            path: '/android',
+            value: 'Android'
           }, {
-            label: 'iOS'
+            path: '/ios',
+            value: 'iOS'
           }, {
-            label: '设计'
+            path: '/design',
+            value: '设计'
           }, {
-            label: '产品'
+            path: '/product',
+            value: '产品'
           }, {
-            label: '工具资源'
+            path: '/freebie',
+            value: '工具资源'
           }, {
-            label: '阅读'
+            path: '/article',
+            value: '阅读'
           }]
         }, {
           label: '收藏集',
+          path: 'collections',
           children: [{
-            label: '编辑推荐'
+            path: '/recommended',
+            value: '编辑推荐'
           }, {
-            label: '全部'
+            path: '/all',
+            value: '全部'
           }]
         }, {
           label: '发现',
+          path: 'explore',
           children: [{
-            label: '全部'
+            path: '/all',
+            value: '全部'
           }, {
-            label: '前端'
+            path: '/frontend',
+            value: '前端'
           }, {
-            label: '后端'
+            path: '/backend',
+            value: '后端'
           }, {
-            label: 'Android'
+            path: '/android',
+            value: 'Android'
           }, {
-            label: 'iOS'
+            path: '/ios',
+            value: 'iOS'
           }, {
-            label: '设计'
+            path: '/design',
+            value: '设计'
           }, {
-            label: '产品'
+            path: '/product',
+            value: '产品'
           }, {
-            label: '工具资源'
+            path: '/freebie',
+            value: '工具资源'
           }, {
-            label: '阅读'
+            path: '/article',
+            value: '阅读'
           }]
-        }],
-        defaultProps: {
-          children: 'children',
-          label: 'label'
-        }
+        }]
       }
     },
     methods: {
-      handleNodeClick (data) {
+      handleOpen (data) {
+        console.log(data)
+        console.log(typeof data)
+      },
+      handleClose (data) {
         console.log(data)
       }
     }
@@ -75,6 +106,5 @@
 <style>
   .el-tree {
     border: 0px;
-    text-align: left;
   }
 </style>
