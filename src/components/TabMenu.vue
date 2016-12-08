@@ -1,6 +1,6 @@
 <template>
   <div id="tabMenu">
-    <el-menu default-active="/zhuanlan/all" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" unique-opened router>
+    <el-menu :default-active="dynamicRouter" class="el-menu-vertical-demo" @select="handleSelect" @open="handleOpen" @close="handleClose" unique-opened router>
       <template v-for="(item, index) in menuData">
         <el-submenu :index="index+''" v-if="!item.leaf">
           <template slot="title">{{ item.label }}</template>
@@ -49,7 +49,7 @@
           }]
         }, {
           label: '收藏集',
-          path: 'collections',
+          path: '/collections',
           children: [{
             path: '/recommended',
             value: '编辑推荐'
@@ -59,7 +59,7 @@
           }]
         }, {
           label: '发现',
-          path: 'explore',
+          path: '/explore',
           children: [{
             path: '/all',
             value: '全部'
@@ -88,13 +88,23 @@
             path: '/article',
             value: '阅读'
           }]
-        }]
+        }],
+        dynamicRouter: ''
       }
     },
+    //
+    mounted () {
+      this.$router.replace(this.dynamicRouter)
+    },
     methods: {
+      handleSelect (path) {
+        console.log(path)
+        console.log(this.$router)
+      },
       handleOpen (data) {
-        console.log(data)
+        this.dynamicRouter = `${this.menuData[data].path}${this.menuData[data].children[0].path}`
         console.log(typeof data)
+        this.$router.replace(this.dynamicRouter)
       },
       handleClose (data) {
         console.log(data)
