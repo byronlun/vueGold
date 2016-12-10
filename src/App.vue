@@ -42,10 +42,10 @@
     <main>
       <div class="content">
         <section>
-          <TabMenu></TabMenu>
+          <TabMenu v-on:routeChange="handleRouteChange"></TabMenu>
         </section>
         <div class="rightContent">
-          <router-view></router-view>
+          <router-view v-bind:parent-route="currentRoute"></router-view>
         </div>
       </div>
     </main>
@@ -73,11 +73,17 @@ export default {
         password: ''
       },
       signinFormRules: {
-      }
+      },
+      currentRoute: ''
     }
   },
   components: {
     TabMenu
+  },
+  methods: {
+    handleRouteChange (route) {
+      this.currentRoute = route
+    }
   }
 }
 </script>
@@ -157,7 +163,7 @@ export default {
       .rightContent {
         background-color: white;
         flex: 1 1 auto;
-        padding: 5px;
+        // padding: 0 5px;
       }
     }
   }

@@ -4,7 +4,6 @@
       <template v-for="(item, index) in menuData">
         <el-submenu :index="index+''" v-if="!item.leaf">
           <template slot="title">{{ item.label }}</template>
-          <!-- 这里router路径有问题，待解决 -->
             <el-menu-item v-for="(childItem, childIndex) in item.children" :index="item.path+childItem.path">{{ childItem.value }}</el-menu-item>
         </el-submenu>
       </template>
@@ -96,14 +95,22 @@
     mounted () {
       this.$router.replace(this.dynamicRouter)
     },
+    watch: {
+      dynamicRouter: function (val) {
+        console.log(val)
+        // 触发routeChange并且传递当前附录给父组件
+        this.$emit('routeChange', val)
+      }
+    },
     methods: {
       handleSelect (path) {
         console.log(path)
+        this.dynamicRouter = path
         console.log(this.$router)
       },
       handleOpen (data) {
+        // 打开菜单栏，默认选中第一个item，同时修改路由
         this.dynamicRouter = `${this.menuData[data].path}${this.menuData[data].children[0].path}`
-        console.log(typeof data)
         this.$router.replace(this.dynamicRouter)
       },
       handleClose (data) {
@@ -114,7 +121,10 @@
 </script>
 
 <style>
-  .el-tree {
+  #tabMenu .el-tree {
     border: 0px;
+  }
+  #tabMenu .el-submenu .el-menu-item {
+    padding: 0 20px;
   }
 </style>

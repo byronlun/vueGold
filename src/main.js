@@ -22,9 +22,9 @@ const routes = [{
   path: '/zhuanlan/:id',
   component: Zhuanlan
   // name: '专栏',
-  // children: [
-  // {
-  //   path: '/zhuanlan/all'
+  // children: [{
+  //   path: '/zhuanlan/all',
+  //   component: AllZL
   // }, {
   //   path: '/zhuanlan/frontend'
   // }, {
