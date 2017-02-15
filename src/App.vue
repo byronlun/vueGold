@@ -93,9 +93,6 @@ export default {
     margin: 0px;
     padding: 0px;
   }
-  body {
-    // background-color: #f4f5f5;
-  }
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
